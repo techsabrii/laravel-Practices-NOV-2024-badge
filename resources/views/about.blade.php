@@ -47,6 +47,7 @@
     </tr>
     @foreach ($name as $person)
         <tr>
+            <td>{{  $loop->index + 1 }}</td>
             <td>{{ $person['name'] }}</td>
             <td>{{ $person['fathername'] }}</td>
             <td><a href="{{ route('about.show', ['id' => $loop->index + 1]  ) }}">View</a></td>
