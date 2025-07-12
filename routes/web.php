@@ -59,12 +59,24 @@
         return view('about', compact('name'));
     })->name('about');
 
+
     Route::get('about/{id}', function ($id) {
         $name = getRecords();
         $user = $name[$id] ?? null;
         return view('about_user', compact('user', 'id'));
     })->where('id', '[0-9]+')->name('about.show');
 
+
+
+
+
+
+
     Route::get('gallery',function(){
         return view('gallery');
 })->name('gallery.index.user');
+
+
+Route::get('bladee', function () {
+    return view('syntax');
+})->name('bladee');
