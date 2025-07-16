@@ -16,6 +16,9 @@
       <li class="nav-item">
         <a class="nav-link " href="{{ url('/about') }}">About</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{{ url('/about') }}"></a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -23,3 +26,7 @@
     </form>
   </div>
 </nav>
+
+@auth
+
+@endauth

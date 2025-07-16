@@ -1,6 +1,7 @@
 
 <?php
 
+    use App\Http\Controllers\AboutController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('/', function () {
@@ -54,17 +55,10 @@
         ];
     }
 
-    Route::get('about', function () {
-        $name = getRecords();
-        return view('about', compact('name'));
-    })->name('about');
+    Route::get('about', [AboutController::class, 'aboutPage'])->name('about');
 
 
-    Route::get('about/{id}', function ($id) {
-        $name = getRecords();
-        $user = $name[$id] ?? null;
-        return view('about_user', compact('user', 'id'));
-    })->where('id', '[0-9]+')->name('about.show');
+    Route::get('about/{id}',[AboutController::class, 'userPage'])->where('id', '[0-9]+')->name('about.show');
 
 
 
@@ -80,3 +74,6 @@
 Route::get('bladee', function () {
     return view('syntax');
 })->name('bladee');
+Route::get('bla', function () {
+    return view('bladee');
+})->name('blade');
