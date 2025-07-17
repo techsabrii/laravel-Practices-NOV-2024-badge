@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Test @yield('title','App')</title>
     <link rel="stylesheet" href="{{ asset('css.style.css') }}">
+    @stack('alerts')
+
 </head>
 <body>
 
