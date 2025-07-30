@@ -8,12 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Rename column first (safest)
         Schema::table('student', function (Blueprint $table) {
             $table->renameColumn('student_name', 'name');
         });
 
-        // Add columns and foreign key
         Schema::table('student', function (Blueprint $table) {
             $table->string('marks')->after('name')->nullable();
             $table->unsignedBigInteger('user_id')->after('marks');

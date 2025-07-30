@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Abdul Basit",
+    "role": "admin",
+    "email": "abdulbasit01@example.com"
+  },
+  {
+    "name": "Fatima Khan",
+    "role": "editor",
+    "email": "fatimakhan02@example.com"
+  },
+  {
+    "name": "Ali Raza",
+    "role": "superadmin",
+    "email": "aliraza03@example.com"
+  },
+  {
+    "name": "Zara Sheikh",
+    "role": "admin",
+    "email": "zarasheikh04@example.com"
+  },
+  {
+    "name": "Bilal Hussain",
+    "role": "editor",
+    "email": "bilalhussain05@example.com"
+  },
+  {
+    "name": "Sara Noor",
+    "role": "superadmin",
+    "email": "saranoor06@example.com"
+  },
+  {
+    "name": "Hamza Tariq",
+    "role": "admin",
+    "email": "hamzatariq07@example.com"
+  },
+  {
+    "name": "Mehwish Ali",
+    "role": "editor",
+    "email": "mehwishali08@example.com"
+  },
+  {
+    "name": "Danish Anwar",
+    "role": "superadmin",
+    "email": "danishanwar09@example.com"
+  },
+  {
+    "name": "Iqra Javed",
+    "role": "admin",
+    "email": "iqrajaved10@example.com"
+  },
+  {
+    "name": "Sana Mir",
+    "role": "editor",
+    "email": "sanamir11@example.com"
+  },
+  {
+    "name": "Usman Akhtar",
+    "role": "superadmin",
+    "email": "usmanakhtar12@example.com"
+  },
+  {
+    "name": "Ayesha Siddiqui",
+    "role": "admin",
+    "email": "ayeshasiddiqui13@example.com"
+  },
+  {
+    "name": "Kashif Mehmood",
+    "role": "editor",
+    "email": "kashifmehmood14@example.com"
+  },
+  {
+    "name": "Nida Farooq",
+    "role": "superadmin",
+    "email": "nidafarooq15@example.com"
+  },
+  {
+    "name": "Imran Shah",
+    "role": "admin",
+    "email": "imranshah16@example.com"
+  },
+  {
+    "name": "Hina Qureshi",
+    "role": "editor",
+    "email": "hinaqureshi17@example.com"
+  },
+  {
+    "name": "Faisal Ahmed",
+    "role": "superadmin",
+    "email": "faisalahmed18@example.com"
+  },
+  {
+    "name": "Tariq Jameel",
+    "role": "admin",
+    "email": "tariqjameel19@example.com"
+  },
+  {
+    "name": "Rimsha Khalid",
+    "role": "editor",
+    "email": "rimshakhalid20@example.com"
+  },
+
+
+
+  {
+    "name": "Nimra Abbasi",
+    "role": "superadmin",
+    "email": "nimraabbasi100@example.com"
+  }
+]
