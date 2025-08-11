@@ -77,3 +77,9 @@ Route::get('bladee', function () {
 Route::get('bla', function () {
     return view('bladee');
 })->name('blade');
+
+
+
+
+Route::get('hi',[AboutController::class, 'testHI']);
+Route::get('/{id}',[AboutController::class, 'detail']);

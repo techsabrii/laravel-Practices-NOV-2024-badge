@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
+
+
+
 
 
 class AboutController extends Controller
@@ -15,12 +20,10 @@ class AboutController extends Controller
 
      public function userPage($id)
     {
-
              $name = $this->getRecords();
               $user = $name[$id] ?? null;
         return view('about_user', compact('id', 'user'));
     }
-
     function getRecords()
     {
         return [
@@ -34,5 +37,22 @@ class AboutController extends Controller
             8 => ['name' => 'Fiona Blue', 'fathername' => 'Fiona Blue Sr.'],
         ];
 
+    }
+
+
+
+    public function testHI(){
+        $user= User::get()->all();
+        return view('hi',compact('user'));
+    }
+
+
+
+
+
+    public function detail($id){
+
+        $user = User::get()->where('email',$id)->first();
+        return view('hi-d',compact('user'));
     }
 }
