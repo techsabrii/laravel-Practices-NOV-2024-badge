@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -42,17 +43,23 @@ class AboutController extends Controller
 
 
     public function testHI(){
-        $user= User::get()->all();
+        $user =  DB::table('users')
+
+        ->latest()
+        ->limit(3)
+        ->skip(4)
+        ->get();
+
+        // return $user;
         return view('hi',compact('user'));
     }
 
 
 
 
-
     public function detail($id){
 
-        $user = User::get()->where('email',$id)->first();
+        $user = User::get()->findOrFail($id);
         return view('hi-d',compact('user'));
     }
 }

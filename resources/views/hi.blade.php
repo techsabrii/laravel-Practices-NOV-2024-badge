@@ -26,7 +26,7 @@
 
     <tr>
         <td>{{$users->name}}</td>
-        <td><a href="{{$users->email}}">view</a></td>
+        <td><a href="{{$users->id}}">view</a></td>
         <td></td>
         <td></td>
         <td></td>
