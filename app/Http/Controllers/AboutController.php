@@ -15,14 +15,14 @@ class AboutController extends Controller
     public function aboutPage()
     {
 
-             $name = $this->getRecords();
+        $name = $this->getRecords();
         return view('about', compact('name'));
     }
 
-     public function userPage($id)
+    public function userPage($id)
     {
-             $name = $this->getRecords();
-              $user = $name[$id] ?? null;
+        $name = $this->getRecords();
+        $user = $name[$id] ?? null;
         return view('about_user', compact('id', 'user'));
     }
     function getRecords()
@@ -37,29 +37,29 @@ class AboutController extends Controller
             7 => ['name' => 'Ethan Black', 'fathername' => 'Ethan Black Sr.'],
             8 => ['name' => 'Fiona Blue', 'fathername' => 'Fiona Blue Sr.'],
         ];
-
     }
 
 
 
-    public function testHI(){
+    public function testHI()
+    {
+
         $user =  DB::table('users')
 
-        ->latest()
-        ->limit(3)
-        ->skip(4)
-        ->get();
+            ->get();
 
         // return $user;
+
         return view('hi',compact('user'));
     }
 
 
 
 
-    public function detail($id){
+    public function detail($id)
+    {
 
         $user = User::get()->findOrFail($id);
-        return view('hi-d',compact('user'));
+        return view('hi-d', compact('user'));
     }
 }

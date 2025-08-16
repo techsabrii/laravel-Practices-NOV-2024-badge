@@ -2,7 +2,8 @@
 <?php
 
     use App\Http\Controllers\AboutController;
-    use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
     Route::get('/', function () {
         return view('welcome');
@@ -81,5 +82,16 @@ Route::get('bla', function () {
 
 
 
-Route::get('hi',[AboutController::class, 'testHI']);
-Route::get('/{id}',[AboutController::class, 'detail']);
+Route::get('hi',[AboutController::class, 'testHI'])->name('user-index');
+Route::get('user/{id}',[AboutController::class, 'detail'])->name('details');
+Route::get('user-record',[UserController::class, 'index']);
+Route::get('user-record-update/{id}',[UserController::class, 'idexUpdate'])->name('get-update');
+Route::post('user-records',[UserController::class, 'store'])->name('records');
+
+
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+Route::delete('/user/delete/{id}', [UserController::class, 'delete'])->name('delete-user');
+
+
+Route::delete('/user/delete-multiple', [UserController::class, 'deleteMultiple'])->name('delete-multiple-users');

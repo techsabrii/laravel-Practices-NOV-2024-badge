@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name')->nullable();    // Add nullable if existing rows exist
             $table->string('email')->nullable();
             $table->string('contact')->nullable();
+            $table->json('image_path')->nullable();
         });
     }
 
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->dropColumn('name');
             $table->dropColumn('email');
             $table->dropColumn('contact');
+            $table->dropColumn('image_path');
         });
 
         Schema::rename('users', 'user');
