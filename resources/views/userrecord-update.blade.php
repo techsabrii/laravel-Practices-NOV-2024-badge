@@ -83,6 +83,9 @@
                                 @endforeach
                             </div>
                         </div>
+                    @else
+                        <div class="col-12 mt-3">
+                            <p class="text-muted">No image found</p>
                     @endif
 
                     <!-- Submit -->

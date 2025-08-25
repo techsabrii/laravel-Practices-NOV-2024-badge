@@ -1,6 +1,96 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <!-- Button trigger modal -->
+
+   <div class="card-header">
+                <h5 class="mb-0">Contact Form</h5>
+
+                {{-- Success Message --}}
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                {{-- Error Message --}}
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+
+                {{-- Validation Errors --}}
+                @if ($errors->any())
+                <div class="alert alert-danger mt-2">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+            </div>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Add Record
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body d-flex justify-content-center">
+                        <form class="row w-50" action="{{route('records.store')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+
+
+                            <!-- Name -->
+                            <div class="col-12">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" value="" name="name" class="form-control" id="name" required>
+                            </div>
+
+                            <!-- Contact -->
+                            <div class="col-12">
+                                <label for="contact" class="form-label">Contact</label>
+                                <input type="tel" value="" name="contact" class="form-control" id="contact" placeholder="03XX-XXXXXXX">
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" value="" name="email" class="form-control" id="email" required>
+                            </div>
+
+
+                            <!-- Submit -->
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 <form action="{{ route('delete-multiple-users') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete selected users?');">
     @csrf
     @method('DELETE')
+
 
     <table border="1" class="table table-bordered">
         <tr>
@@ -51,3 +141,4 @@
         }
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

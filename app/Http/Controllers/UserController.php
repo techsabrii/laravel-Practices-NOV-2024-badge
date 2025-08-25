@@ -39,6 +39,27 @@ class UserController extends Controller
     }
 
 
+    public function RecordCreate(Request $request){
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'contact' => 'nullable|string|max:15',
+            'email' => 'required|unique:users,email',
+        ]);
+
+        // Save data
+        DB::table('users')->insert([
+            'name'    => $request->name,
+            'contact' => $request->contact,
+            'email'   => $request->email,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Record saved successfully!');
+    }
+
+
     public function idexUpdate($id)
     {
 
@@ -130,8 +151,6 @@ class UserController extends Controller
                 }
             }
         }
-
-        // Ab DB se users delete karo
         DB::table('users')->whereIn('id', $ids)->delete();
 
         return redirect()->back()->with('success', 'Selected users and their images deleted successfully!');

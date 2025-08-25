@@ -87,6 +87,7 @@ Route::get('user/{id}',[AboutController::class, 'detail'])->name('details');
 Route::get('user-record',[UserController::class, 'index']);
 Route::get('user-record-update/{id}',[UserController::class, 'idexUpdate'])->name('get-update');
 Route::post('user-records',[UserController::class, 'store'])->name('records');
+Route::post('user-records/create',[UserController::class, 'RecordCreate'])->name('records.store');
 
 
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
