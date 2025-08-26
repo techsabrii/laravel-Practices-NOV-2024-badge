@@ -41,17 +41,13 @@ class AboutController extends Controller
 
 
 
-    public function testHI()
-    {
+public function testHI()
+{
+    // 10 records per page
+    $user = User::paginate(50);
 
-        $user =  DB::table('users')
-
-            ->get();
-
-        // return $user;
-
-        return view('hi',compact('user'));
-    }
+    return view('hi', compact('user'));
+}
 
 
 
