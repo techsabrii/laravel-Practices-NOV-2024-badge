@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -26,29 +27,33 @@ class UserController extends Controller
             'email' => 'required',
         ]);
 
-        // Save data
-        DB::table('users')->insert([
-            'name'    => $request->name,
-            'contact' => $request->contact,
-            'email'   => $request->email,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $user = new User();
+        $user->fill($request->only(['name', 'contact', 'email']));
+        $user->save();
+
 
         return redirect()->back()->with('success', 'Record saved successfully!');
     }
 
 
-    public function RecordCreate(Request $request){
+    public function RecordCreate(Request $request)
+    {
 
         $request->validate([
             'name' => 'required|string|max:255',
             'contact' => 'nullable|string|max:15',
             'email' => 'required|unique:users,email',
+        ], [
+            'email.unique' => 'This email is already taken.',
+            'name.required' => 'Name is required.',
+            'name.string'   => 'Name must be a string.',
+            'name.max'      => 'Name may not be greater than 255 characters.',
+            'contact.string' => 'Contact must be a string.',
+            'contact.max'   => 'Contact may not be greater than 15 characters.',
         ]);
 
         // Save data
-        DB::table('users')->insert([
+        User::create([
             'name'    => $request->name,
             'contact' => $request->contact,
             'email'   => $request->email,
@@ -126,37 +131,36 @@ class UserController extends Controller
     }
 
 
- public function deleteMultiple(Request $request)
-{
-    $ids = $request->ids;
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->ids;
 
-    if ($ids && count($ids) > 0) {
-        // Pehle selected users fetch karo
-        $users = DB::table('users')->whereIn('id', $ids)->get();
+        if ($ids && count($ids) > 0) {
+            // Pehle selected users fetch karo
+            $users = DB::table('users')->whereIn('id', $ids)->get();
 
-        foreach ($users as $user) {
-            if (!empty($user->image_path)) {
-                $images = json_decode($user->image_path, true);
+            foreach ($users as $user) {
+                if (!empty($user->image_path)) {
+                    $images = json_decode($user->image_path, true);
 
-                if (is_array($images)) {
-                    foreach ($images as $img) {
-                        // Remove "storage/" prefix (DB me 'storage/uploads/...' hota hai)
-                        $path = str_replace('storage/', '', $img);
+                    if (is_array($images)) {
+                        foreach ($images as $img) {
+                            // Remove "storage/" prefix (DB me 'storage/uploads/...' hota hai)
+                            $path = str_replace('storage/', '', $img);
 
-                        // Agar file exist karti hai to delete kar do
-                        if (Storage::disk('public')->exists($path)) {
-                            Storage::disk('public')->delete($path);
+                            // Agar file exist karti hai to delete kar do
+                            if (Storage::disk('public')->exists($path)) {
+                                Storage::disk('public')->delete($path);
+                            }
                         }
                     }
                 }
             }
+            DB::table('users')->whereIn('id', $ids)->delete();
+
+            return redirect()->back()->with('success', 'Selected users and their images deleted successfully!');
         }
-        DB::table('users')->whereIn('id', $ids)->delete();
 
-        return redirect()->back()->with('success', 'Selected users and their images deleted successfully!');
+        return redirect()->back()->with('error', 'No users selected for deletion.');
     }
-
-    return redirect()->back()->with('error', 'No users selected for deletion.');
-}
-
 }
