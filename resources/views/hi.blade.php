@@ -1,5 +1,69 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <!-- Button trigger modal -->
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="#">TS-WEB</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+
+            <!-- Right Side -->
+
+
+            @auth
+            @php
+            $image = json_decode(Auth::user()->image_path, true);
+            $profileImage = $image && is_array($image) ? asset($image[0]) : asset('default-profile.png');
+            @endphp
+
+            <!-- Profile Dropdown -->
+            <div class="dropdown">
+                <a class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                    href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ $profileImage }}" alt="Profile" width="40" height="40" class="rounded-circle me-2">
+                    <span>{{ Auth::user()->name ?? 'User' }}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="#">My Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            @endauth
+
+            @guest
+            <a href="{{ route('login') }}" class="btn btn-outline-primary ms-3">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-primary ms-2">Register</a>
+            @endguest
+        </div>
+    </div>
+</nav>
+
 <div class="card-header">
     <h5 class="mb-0">Contact Form</h5>
 
@@ -100,7 +164,7 @@
             <th>Name</th>
             <th>Father Name</th>
             <th>Email</th>
-            <th>Verified</th>
+            <th>Address</th>
             <th>Role</th>
             <th colspan="2">Action</th>
         </tr>
@@ -113,8 +177,19 @@
             <td>{{ $users->name }}</td>
             <td><a href="{{ route('details',['id'=>$users->id]) }}">view</a></td>
             <td>{{ $users->email }}</td>
-            <td>{{ $users->verified ?? '-' }}</td>
+            <td>
+
+                @if($users->addresses->isNotEmpty())
+                @foreach($users->addresses as $address)
+                {{ $address->state }}<br>
+                @endforeach
+                @else
+                N/A
+                @endif
+            </td>
+
             <td>{{ $users->role ?? '-' }}</td>
+
             <td>
                 <!-- Update Button -->
                 <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#updateModal{{ $users->id }}" class="btn btn-sm btn-primary">

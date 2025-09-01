@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,6 +16,7 @@ class UserController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
         return view('userrecord');
     }
 
@@ -76,13 +78,19 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to update your profile.');
+        }
+        $userID = Auth::user()->id;
+
         $request->validate([
             'name'    => 'required|string|max:255',
             'contact' => 'nullable|string|max:25',
             'email'   => 'required|email',
             'images.*' => 'nullable|image|mimes:jpg,jpeg,png|max:12048', // each image max 2MB
         ]);
-        $user = DB::table('users')->where('id', $id)->first();
+        $user = DB::table('users')->where('id', $userID)->first();
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -95,7 +103,7 @@ class UserController extends Controller
             $oldImages = json_decode($user->image_path, true) ?? [];
         }
         $allImages = array_merge($oldImages, $images);
-        DB::table('users')->where('id', $id)->update([
+        DB::table('users')->where('id', $userID)->update([
             'name'       => $request->name,
             'contact'    => $request->contact,
             'email'      => $request->email,

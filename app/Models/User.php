@@ -15,21 +15,14 @@ class User extends Authenticatable
 
 
     protected $fillable = [
-        'full_name',
+        'name',
         'email',
-        'password',
+        'contact',
+        'password'
     ];
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
-    ];
-
-
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
+        public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 
 }

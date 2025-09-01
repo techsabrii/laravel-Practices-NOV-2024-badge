@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -43,8 +44,12 @@ class AboutController extends Controller
 
 public function testHI()
 {
+        // if (!Auth::check()) {
+        //     return redirect()->route('login')->with('error', 'You must be logged in to update your profile.');
+        // }
     // 10 records per page
-    $user = User::paginate(50);
+   $user = User::paginate(10);
+
 
     return view('hi', compact('user'));
 }
