@@ -3,10 +3,15 @@
 
 use App\Http\Controllers\AboutController;
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CrudController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AuthHelp;
 
+use App\Http\Middleware\UserAuth;
+use App\Http\Middleware\UserLog;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
@@ -108,7 +113,7 @@ Route::resource('crud', CrudController::class);
 
 
 
-use App\Http\Controllers\AuthController;
+
 
 // Authentication Routes
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -123,3 +128,44 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
+
+
+
+
+
+
+
+
+
+
+
+
+Route::middleware(['AHelp','Ulog:admin','UAuth'])->group(function () {
+
+    Route::get('user-log', function () {
+        return '<h1 style="color:blue;">User Log Page</h1>';
+    })->middleware(['Ulog:admin']);
+});
+
+
+
+
+
+Route::get('user', function () {
+    return '<h1>User Page</h1>
+        <br>
+        <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/r2LQ3WnqY9g"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+</iframe>
+';
+})->can('Admin');
+
+
+Route::get('mail',[MailController::class,'index'])->name('mail');
+
+
+

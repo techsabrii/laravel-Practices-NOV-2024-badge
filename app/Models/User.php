@@ -18,7 +18,8 @@ class User extends Authenticatable
         'name',
         'email',
         'contact',
-        'password'
+        'password',
+        'role'
     ];
         public function addresses()
     {

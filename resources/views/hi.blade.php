@@ -94,10 +94,27 @@
     </div>
     @endif
 </div>
-
+<!-- @if(Gate::allows('Admin'))
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
     Add Record
 </button>
+@endif -->
+<!-- @if(Gate::denies('Admin'))
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Add Record
+</button>
+@endif -->
+
+<!-- @can('Admin')
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Add Record +
+</button>
+@endcan -->
+<!-- @cannot('Admin')
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Add Record
+</button>
+@endcan -->
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
