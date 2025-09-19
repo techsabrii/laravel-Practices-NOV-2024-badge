@@ -74,7 +74,56 @@
                 @endif
             </div>
 
-            <form method="POST" action="{{ route('register.store') }}">
+
+
+            <form id="registerForm">
+    @csrf
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Full Name</label>
+        <input type="text" name="full_name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Contact</label>
+        <input type="text" name="contact" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Confirm Password</label>
+        <input type="password" name="password_confirmation" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-custom w-100 py-2 fw-semibold">Register</button>
+</form>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    let response = await fetch("{{ url('/api/register') }}", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await response.json();
+    console.log(data);
+
+    if (data.status) {
+        alert("✅ Registration successful!");
+    } else {
+        alert("❌ " + data.message);
+    }
+});
+</script>
+
+            <!-- <form method="POST" action="{{ route('register.store') }}">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Full Name</label>
@@ -97,7 +146,7 @@
                     <input type="password" name="password_confirmation" class="form-control" placeholder="Re-enter password" required>
                 </div>
                 <button class="btn btn-custom w-100 py-2 fw-semibold">Register</button>
-            </form>
+            </form> -->
 
             <p class="mt-3 text-center">
                 Already have an account?

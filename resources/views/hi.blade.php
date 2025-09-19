@@ -27,13 +27,55 @@
             <!-- Right Side -->
 
 
+
+            <div id="navbar-auth"></div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    let token = localStorage.getItem("token"); // ✅ same key as login
+                    let userData = localStorage.getItem("user");
+                    userData = userData ? JSON.parse(userData) : null;
+
+                    if (token && userData) {
+                        document.getElementById("navbar-auth").innerHTML = `
+            <div class="dropdown">
+                <a class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                    href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="/default-profile.png" alt="Profile" width="40" height="40" class="rounded-circle me-2">
+                    <span>${userData.name}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="#">My Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button onclick="logout()" class="dropdown-item text-danger">Logout</button></li>
+                </ul>
+            </div>
+        `;
+                    } else {
+                        document.getElementById("navbar-auth").innerHTML = `
+            <a href="{{ route('login') }}" class="btn btn-outline-primary ms-3">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-primary ms-2">Register</a>
+        `;
+                    }
+                });
+
+                function logout() {
+                    localStorage.removeItem("token"); // ✅ same key
+                    localStorage.removeItem("user");
+                    window.location.reload();
+                }
+            </script>
+
+
+            <!--
             @auth
             @php
             $image = json_decode(Auth::user()->image_path, true);
             $profileImage = $image && is_array($image) ? asset($image[0]) : asset('default-profile.png');
             @endphp
 
-            <!-- Profile Dropdown -->
+
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle"
                     href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,7 +101,7 @@
             @guest
             <a href="{{ route('login') }}" class="btn btn-outline-primary ms-3">Login</a>
             <a href="{{ route('register') }}" class="btn btn-primary ms-2">Register</a>
-            @endguest
+            @endguest -->
         </div>
     </div>
 </nav>
